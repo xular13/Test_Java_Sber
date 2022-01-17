@@ -8,11 +8,11 @@ public class Route {
     ArrayList <Integer> cost;
 
 
-    public ArrayList<Integer> Possible_Route() {
+    public ArrayList<Integer> Possible_Route(){
         int num_station = this.gas.size();
         ArrayList<Integer> list_of_routs = new ArrayList<>();
         if (num_station != this.cost.size())
-            System.out.print("Error with data");
+            throw new IncorrectSizeException("Error with size of arrays");
         for (int i = 0; i<num_station; i++){
             int fuel_tank = 0;
             int steps = 0;
@@ -28,9 +28,16 @@ public class Route {
                     list_of_routs.add(i);
                     break;
                 }
-                fuel_tank += this.gas.get(k);
                 k = (k+1)%num_station;
+                fuel_tank += this.gas.get(k);
             }
+        }
+        if(list_of_routs.isEmpty()){
+            System.out.println("Нет возможных маршрутов");
+        }
+        else{
+            System.out.println("Возможные станции для маршрута:");
+            System.out.println(list_of_routs);
         }
         return list_of_routs;
     }
